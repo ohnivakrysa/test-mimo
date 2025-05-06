@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moje Webová Stránka se Skriptem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Vlastní styly lze přidat sem nebo přímo do HTML pomocí Tailwind tříd */
+        body {
+            font-family: 'Inter', sans-serif; /* Použití písma Inter */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-6">
+
+    <div class="bg-white p-8 rounded-lg shadow-xl text-center max-w-md w-full">
+        <h1 id="nadpis" class="text-3xl font-bold text-blue-600 mb-6">Ahoj Světe!</h1>
+
+        <p id="popis" class="text-gray-700 mb-6">
+            Toto je jednoduchá ukázka webové stránky se základním JavaScriptovým skriptem.
+        </p>
+
+        <button id="zmenitTextTlacitko"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105">
+            Změnit text!
+        </button>
+
+        <div id="zpravaBox" class="mt-6 p-4 text-green-700 bg-green-100 border border-green-400 rounded-lg hidden">
+            Text byl úspěšně změněn!
+        </div>
+    </div>
+
+    <script>
+        // JavaScript kód
+        // Najdeme HTML elementy podle jejich ID
+        const nadpisElement = document.getElementById('nadpis');
+        const popisElement = document.getElementById('popis');
+        const tlacitkoElement = document.getElementById('zmenitTextTlacitko');
+        const zpravaBoxElement = document.getElementById('zpravaBox');
+
+        // Počáteční stav textů (volitelné, pokud je již v HTML)
+        let puvodniNadpis = "Ahoj Světe!";
+        let novyNadpis = "Skript funguje!";
+        let jeTextZmenen = false;
+
+        // Funkce, která se zavolá po kliknutí na tlačítko
+        function zmenText() {
+            if (jeTextZmenen) {
+                nadpisElement.textContent = puvodniNadpis;
+                popisElement.textContent = "Text byl vrácen na původní hodnotu pomocí JavaScriptu.";
+                tlacitkoElement.textContent = "Změnit text!";
+                zpravaBoxElement.textContent = "Text byl vrácen na původní!";
+                jeTextZmenen = false;
+            } else {
+                nadpisElement.textContent = novyNadpis;
+                popisElement.textContent = "Text nadpisu byl právě změněn pomocí JavaScriptu!";
+                tlacitkoElement.textContent = "Vrátit původní text";
+                zpravaBoxElement.textContent = "Text byl úspěšně změněn!";
+                jeTextZmenen = true;
+            }
+            // Zobrazíme zprávu
+            zpravaBoxElement.classList.remove('hidden');
+            // Skryjeme zprávu po 3 sekundách
+            setTimeout(() => {
+                zpravaBoxElement.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Přiřadíme funkci 'zmenText' k události 'click' na tlačítku
+        if (tlacitkoElement) {
+            tlacitkoElement.addEventListener('click', zmenText);
+        } else {
+            console.error("Chyba: Tlačítko s ID 'zmenitTextTlacitko' nebylo nalezeno.");
+        }
+
+        // Výpis do konzole pro ladění (můžete otevřít vývojářské nástroje v prohlížeči - F12)
+        console.log("Skript byl úspěšně načten a spuštěn.");
+    </script>
+
+</body>
+</html>
